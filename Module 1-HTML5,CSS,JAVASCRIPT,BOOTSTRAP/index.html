@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Community Event Portal</title>
+    <link rel="stylesheet" href="style.css">
+
+   
+</head>
+
+<body onbeforeunload="return warnBeforeLeaving()">
+
+    <!-- Header -->
+    <header id="home">
+        <h1>Local Community Event Portal</h1>
+        <p>Stay connected with events and services in your city</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+        <a href="help.html" target="_blank">Help</a>
+    </nav>
+
+    <!-- Main -->
+    <main>
+        <section>
+            <h2>Welcome</h2>
+            <div id="welcomeBanner">
+                Welcome back, resident! Check out the latest events happening near you.
+                <span style="color: red; font-weight: bold;">Special offer: Free entry for early registration!</span>
+            </div>
+            <p class="highlight">This portal helps you register for events, give feedback and find nearby event locations.</p>
+        </section>
+
+        <section id="events">
+            <h2>Community Event Gallery</h2>
+            <table>
+                <caption class="highlight">Photos from our previous community events</caption>
+                <tr>
+                    <td>
+                        <img src="https://plus.unsplash.com/premium_photo-1685082778205-8665f65e8c2c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNnx8fGVufDB8fHx8fA%3D%3D" alt="Cultural Event" title="Cultural Event" class="eventImage" ondblclick="enlargeImage(this)">
+                        <p>Cultural Event</p>
+                    </td>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1779571331215-0a26a39caa35?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D" alt="Community Meeting" title="Community Meeting" class="eventImage" ondblclick="enlargeImage(this)">
+                        <p>Community Meeting</p>
+                    </td>
+                    <td>
+                        <img src="https://plus.unsplash.com/premium_photo-1663937576267-b178ecd95bfa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8" alt="Charity Program" title="Charity Program" class="eventImage" ondblclick="enlargeImage(this)">
+                        <p>Charity Program</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400" alt="Music Night" title="Music Night" class="eventImage" ondblclick="enlargeImage(this)">
+                        <p>Music Night</p>
+                    </td>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1777691973962-12dfdd860807?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8" alt="Park Clean Up" title="Park Clean Up" class="eventImage" ondblclick="enlargeImage(this)">
+                        <p>Park Clean Up</p>
+                    </td>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400" alt="Youth Workshop" title="Youth Workshop" class="eventImage" ondblclick="enlargeImage(this)">
+                        <p>Youth Workshop</p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>Event Registration Form</h2>
+            <form id="registrationForm" onsubmit="registerUser(event)">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" placeholder="Enter your name" required autofocus>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+
+                <label for="eventDate">Event Date:</label>
+                <input type="date" id="eventDate" required>
+
+                <label for="eventType">Event Type:</label>
+                <select id="eventType" onchange="showEventFee(); savePreference();" required>
+                    <option value="">Select Event</option>
+                    <option value="Cultural Event">Cultural Event</option>
+                    <option value="Music Night">Music Night</option>
+                    <option value="Park Clean Up">Park Clean Up</option>
+                    <option value="Workshop">Workshop</option>
+                </select>
+                <p id="feeDisplay"></p>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" placeholder="Enter 10 digit phone number" onblur="validatePhone()">
+                <p id="phoneError" style="color:red;"></p>
+
+                <label for="message">Message:</label>
+                <textarea id="message" rows="4" placeholder="Write your message" onkeyup="countCharacters()"></textarea>
+                <p>Characters typed: <span id="charCount">0</span></p>
+
+                <button type="submit" onclick="buttonConfirmation()">Register</button>
+                <button type="button" onclick="clearPreferences()">Clear Preferences</button>
+
+                <output id="confirmationMessage"></output>
+            </form>
+        </section>
+
+        <section>
+            <h2>Feedback</h2>
+            <textarea id="feedback" rows="4" placeholder="Write your feedback here" onkeyup="countFeedbackCharacters()"></textarea>
+            <p>Feedback characters: <span id="feedbackCount">0</span></p>
+        </section>
+
+        <section>
+            <h2>Event Promo Video</h2>
+            <video width="400" controls oncanplay="videoReady()">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p id="videoMessage"></p>
+        </section>
+
+        <section>
+            <h2>Find Nearby Events</h2>
+            <button onclick="findNearbyEvents()">Find Nearby Events</button>
+            <p id="locationResult"></p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>Email: communityportal@example.com</p>
+            <p>Phone: +91 6261119xxx</p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Local Community Event Portal</p>
+    </footer>
+
+     <script src="script.js"></script>
+
+</body>
+</html>
