@@ -1,1 +1,37 @@
-import java.util.*; public class Q25_HashMapDemo{public static void main(String[]a){HashMap<Integer,String> m=new HashMap<>();m.put(1,"John");System.out.println(m.get(1));}}
+import java.util.*;
+
+public class Q25_HashMapDemo {
+
+    public static void main(String[] args) {
+
+        HashMap<Integer, String> students = new HashMap<>();
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("How many students? ");
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter Student ID: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Enter Student Name: ");
+            String name = sc.nextLine();
+
+            students.put(id, name);
+        }
+
+        System.out.print("Enter ID to search: ");
+        int searchId = sc.nextInt();
+
+        if (students.containsKey(searchId)) {
+            System.out.println("Student Name: "
+                    + students.get(searchId));
+        } else {
+            System.out.println("Student not found.");
+        }
+
+        sc.close();
+    }
+}
